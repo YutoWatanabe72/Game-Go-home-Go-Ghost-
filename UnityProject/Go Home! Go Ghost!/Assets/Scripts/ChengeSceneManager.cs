@@ -9,55 +9,79 @@ public class ChengeSceneManager : MonoBehaviour
     private bool startCheck;
     private bool resultCheck;
     private bool titleCheck;
+    private bool tutorialCheck;
     private bool endCheck;
+    private bool fadeCheck; 
 
-    const float changeTime = 1.5f;
+    FadeController fadeController;
+
+    const float changeTime = 2.0f;
+    const float fadeTime = 1.0f;
 
     void Start()
     {
         timer = 0.0f;
         startCheck = false;
+        tutorialCheck = false;
         resultCheck = false;
         titleCheck = false;
         endCheck = false;
+        fadeCheck = false;
+        fadeController = GameObject.Find("Panel").GetComponent<FadeController>();
     }
 
     public void PushGameMainButton()
     {
         startCheck = true;
+        fadeCheck = true;
+        timer = 0.0f;
+    }
+    public void PushTutorialButton()
+    {
+        tutorialCheck = true;
+        fadeCheck = true;
         timer = 0.0f;
     }
     public void PushGameResultButton()
     {
         resultCheck = true;
+        fadeCheck = true;
         timer = 0.0f;
     }
 
     public void PushGameTitleButton()
     {
         titleCheck = true;
+        fadeCheck = true;
         timer = 0.0f;
     }
 
     public void PushGameEndButton()
     {
         endCheck = true;
+        fadeCheck = true;
         timer = 0.0f;
     }
     void Quit()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #elif UNITY_STANDALONE
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
              UnityEngine.Application.Quit();
-        #endif
+#endif
     }
     void Update()
     {
         if (Input.GetKey(KeyCode.Escape)) Quit();
 
         timer += Time.deltaTime;
-        if(timer >= changeTime)
+
+        if (timer >= fadeTime)
+        {
+            FadeOut();
+        }
+
+        if (timer >= changeTime)
         {
             ChangeScene();
         }
@@ -65,9 +89,15 @@ public class ChengeSceneManager : MonoBehaviour
 
     private void ChangeScene()
     {
+        if (tutorialCheck)
+        {
+            //タイトルシーンからチュートリアルシーンへの移動
+            LifeGage.playerLife = 30000;//プレイヤーライフのリセット
+            SceneManager.LoadScene("TutorialScene");
+        }
         if (startCheck)
         {
-            //タイトル画面からメインシーンへの移動
+            //チュートリアルシーンからメインシーンへの移動
             LifeGage.playerLife = 30000;//プレイヤーライフのリセット
             SceneManager.LoadScene("MainScene");
         }
@@ -85,6 +115,14 @@ public class ChengeSceneManager : MonoBehaviour
         {
             //ゲームを終了する処理
             Quit();
+        }
+    }
+
+    private void FadeOut()
+    {
+        if (fadeCheck)
+        {
+            fadeController.isFadeOut = true;
         }
     }
 }

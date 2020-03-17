@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
     const int scoreMagC = 10;//　〃
 
     public GameObject toresultButton;//リザルトシーンへのシーン遷移ボタン
+    Button toResult;
     public GameObject Clear;//クリア表示
     public GameObject GameOver;//ゲームオーバー表示
     public GameObject winIrast;//ゲームクリア時のキャラクターのイラスト
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public GameObject defIrast;//初期イラストの表示
     public GameObject feverIrast;//フィーバータイム中のイラスト
     public Text distansText;//ゴールまでの距離の表示
+    public GameObject startText;//スタートロゴの表示
     public GameObject chasecamera;//カメラのポジション
 
     private playerState state;//プレイヤーのステータス
@@ -159,6 +161,16 @@ public class PlayerController : MonoBehaviour
         }
         //得点処理→Mainに渡すために点数を簡略化
         LifeGage.totalCount = scoreA + (scoreB * scoreMagB) + (scoreC * scoreMagC);
+
+        //プレイヤーがスタート地点(ｘ=０)に着いたらスタートのテキスト表示
+        if(this.transform.position.x >= -10)
+        {
+            startText.SetActive(true);
+        }
+        if (this.transform.position.x >= 20)
+        {
+            startText.SetActive(false);
+        }
 
         //ゴールまでの距離の表示
         distansText.text = Mathf.Floor(stageDist - transform.position.x).ToString() + "m/1000m";
@@ -335,6 +347,8 @@ public class PlayerController : MonoBehaviour
         canJump = false;//ジャンプ不可
         LifeGage.endflag = true;//体力ゲージの自動減少の停止
         toresultButton.SetActive(true);//シーン遷移のボタン表示
+        toResult = GameObject.Find("Canvas/ToResult").GetComponent<Button>();
+        toResult.Select();
 
         if (LifeGage.playerLife <= 0)
         {

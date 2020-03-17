@@ -1,19 +1,31 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - ButtonSelectedOnResult
+    - ButtonSelectedOnTitle
     - ChengeSceneManager
+    - FadeController
     - LifeGage
     - MainManager
     - PlayerController
     - RandomCreate
     - ResultSceneUI
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.GridLayoutGroup
     - UnityEngine.UI.Image
+    - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
   sceneClasses:
@@ -47,31 +59,33 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9322}
-    - Class: 114
       Script: {instanceID: 9324}
     - Class: 114
-      Script: {instanceID: 9330}
+      Script: {instanceID: 9326}
     - Class: 114
-      Script: {instanceID: 9336}
+      Script: {instanceID: 9332}
     - Class: 114
-      Script: {instanceID: 9344}
+      Script: {instanceID: 9338}
     - Class: 114
-      Script: {instanceID: 9378}
+      Script: {instanceID: 9346}
     - Class: 114
       Script: {instanceID: 9380}
     - Class: 114
       Script: {instanceID: 9382}
     - Class: 114
-      Script: {instanceID: 9398}
+      Script: {instanceID: 9384}
     - Class: 114
-      Script: {instanceID: 9742}
+      Script: {instanceID: 9400}
     - Class: 114
-      Script: {instanceID: 9750}
+      Script: {instanceID: 9744}
     - Class: 114
-      Script: {instanceID: 9786}
+      Script: {instanceID: 9752}
     - Class: 114
-      Script: {instanceID: 9820}
+      Script: {instanceID: 9788}
+    - Class: 114
+      Script: {instanceID: 9822}
+    - Class: 114
+      Script: {instanceID: 9888}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -101,30 +115,40 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9322}
+      Script: {instanceID: 9256}
     - Class: 114
       Script: {instanceID: 9324}
     - Class: 114
-      Script: {instanceID: 9330}
+      Script: {instanceID: 9326}
     - Class: 114
-      Script: {instanceID: 9336}
+      Script: {instanceID: 9332}
     - Class: 114
-      Script: {instanceID: 9344}
+      Script: {instanceID: 9338}
     - Class: 114
-      Script: {instanceID: 9380}
+      Script: {instanceID: 9346}
     - Class: 114
       Script: {instanceID: 9382}
     - Class: 114
-      Script: {instanceID: 9786}
+      Script: {instanceID: 9384}
     - Class: 114
-      Script: {instanceID: 9820}
+      Script: {instanceID: 9788}
     - Class: 114
-      Script: {instanceID: 9918}
+      Script: {instanceID: 9822}
+    - Class: 114
+      Script: {instanceID: 9888}
+    - Class: 114
+      Script: {instanceID: 9922}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -152,26 +176,42 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 9322}
-    - Class: 114
       Script: {instanceID: 9324}
     - Class: 114
-      Script: {instanceID: 9330}
+      Script: {instanceID: 9326}
     - Class: 114
-      Script: {instanceID: 9336}
+      Script: {instanceID: 9328}
     - Class: 114
-      Script: {instanceID: 9344}
+      Script: {instanceID: 9332}
     - Class: 114
-      Script: {instanceID: 9380}
+      Script: {instanceID: 9338}
+    - Class: 114
+      Script: {instanceID: 9340}
+    - Class: 114
+      Script: {instanceID: 9346}
+    - Class: 114
+      Script: {instanceID: 9350}
     - Class: 114
       Script: {instanceID: 9382}
     - Class: 114
-      Script: {instanceID: 9786}
+      Script: {instanceID: 9384}
+    - Class: 114
+      Script: {instanceID: 9788}
+    - Class: 114
+      Script: {instanceID: 9888}
+    - Class: 114
+      Script: {instanceID: 10532}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -211,6 +251,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ScrollbarEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonSelectedOnResult
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -417,7 +463,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: ba1980a43e4906e142ab94d822a75ee1
+      Hash: d17c11b567dcc3732d65c935ce8d3327
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -705,7 +751,7 @@ ScriptsOnlyBuild:
     className: ChengeSceneManager
   - hash:
       serializedVersion: 2
-      Hash: 16ae92b57f19ce1d65590eba5c17dab7
+      Hash: adebcbc861016c270dfad14f63e46de8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainManager
@@ -723,6 +769,12 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
+      Hash: d24ed7227652a0722bd8f2470c4fe59a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FadeController
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.Analytics.Editor.dll
     namespaceName: UnityEditor.Analytics
@@ -735,7 +787,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 0c8f52672189443ae2836b5ad57e25ab
+      Hash: e0b9719aad1d3ead2c96961eec015b28
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ResultSceneUI
@@ -853,6 +905,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ColorGradient
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonSelectedOnTitle
   - hash:
       serializedVersion: 2
       Hash: 8649814970b42d345b89944b862453cc
