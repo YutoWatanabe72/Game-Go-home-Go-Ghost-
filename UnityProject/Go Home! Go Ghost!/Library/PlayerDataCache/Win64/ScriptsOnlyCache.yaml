@@ -17,6 +17,8 @@ ScriptsOnlyBuild:
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
     - UnityEditor.Graphs.AnimatorControllerTool
+    UnityEditor.TestRunner.dll:
+    - UnityEditor.TestTools.TestRunner.TestListCacheData
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -533,18 +535,6 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: UnityEngine.Advertisements.dll
-    namespaceName: UnityEngine.Advertisements
-    className: CallbackExecutor
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: UnityEngine.Advertisements.dll
-    namespaceName: UnityEngine.Advertisements.Editor
-    className: Placeholder
-  - hash:
-      serializedVersion: 2
       Hash: cf9f5cf2c3145a37ac07f00e50e460f9
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -999,5 +989,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/TutorialScene.unity
   - Assets/Scenes/MainScene.unity
   - Assets/Scenes/ResultScene.unity
-  playerPath: "C:/Users/yutow/Desktop/\u65B0\u3057\u3044\u30D5\u30A9\u30EB\u30C0\u30FC
-    (4)/Go Home! Go Ghost!.exe"
+  playerPath: "C:/Users/yutow/Desktop/\u304A\u3070\u3051/Go Home! Go Ghost!.exe"
