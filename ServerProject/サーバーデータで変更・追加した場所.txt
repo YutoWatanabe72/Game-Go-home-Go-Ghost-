@@ -1,0 +1,3 @@
+サーバーデータで変更・追加したコードの場所
+・ServerProject.GameRanking.config.app.php「266-273」
+・ServerProject.GameRanking.src.Controller.GamescoreController.php「107-143」
