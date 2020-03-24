@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb2d;
+    Animator animator;
 
     //カメラのポジション
     const float cameraPosY = 10f;
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
     private playerState state;//プレイヤーのステータス
     private float stateResetTime = 3f;//プレイヤーのステータスをリセットする時間
     private bool Freeze;//プレイヤーが停止しているかどうか
+    private bool StartLogoDisp;
 
     //現在のステータスを表示する画像
     public GameObject freeze;
@@ -80,6 +82,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         playerSpeed = runSpeed;
         jumpPower = maxjumpPower;
         //ステータスのリセット
@@ -92,6 +95,7 @@ public class PlayerController : MonoBehaviour
         //boolの初期化
         fever = false;
         Freeze = false;
+        StartLogoDisp = false;
     }
 
     void Update()
@@ -119,6 +123,7 @@ public class PlayerController : MonoBehaviour
             {
                 SetState(playerState.Run);
                 reverse.SetActive(false);
+                animator.SetBool("Reverse", false);
                 slow.SetActive(false);
                 freeze.SetActive(false);
             }
@@ -153,23 +158,23 @@ public class PlayerController : MonoBehaviour
         //キャラクターのジャンプ処理
         if (Input.GetKeyDown("space"))
         {
-            if (canJump)
-            {
-                rb2d.AddForce(Vector2.up * jumpPower);
-                canJump = false;
-            }
+            CanJump();
         }
         //得点処理→Mainに渡すために点数を簡略化
         LifeGage.totalCount = scoreA + (scoreB * scoreMagB) + (scoreC * scoreMagC);
 
         //プレイヤーがスタート地点(ｘ=０)に着いたらスタートのテキスト表示
-        if(this.transform.position.x >= -10)
+        if (!StartLogoDisp)
         {
-            startText.SetActive(true);
-        }
-        if (this.transform.position.x >= 20)
-        {
-            startText.SetActive(false);
+            if (this.transform.position.x >= -10)
+            {
+                startText.SetActive(true);
+            }
+            if (this.transform.position.x >= 20)
+            {
+                startText.SetActive(false);
+                StartLogoDisp = true;
+            }
         }
 
         //ゴールまでの距離の表示
@@ -298,6 +303,7 @@ public class PlayerController : MonoBehaviour
         else if (tempstate == playerState.Reverse)//逆走
         {
             playerSpeed = reverseRun;
+            animator.SetTrigger("ReverseTrigger");
             deltaTime = 0f;
         }
         else if (tempstate == playerState.Slow)//スロウ
@@ -315,6 +321,16 @@ public class PlayerController : MonoBehaviour
         else if (tempstate == playerState.Gameend)//ゲーム終了
         {
             playerSpeed = 0f;
+        }
+    }
+
+    //ジャンプ処理
+    private void CanJump()
+    {
+        if (canJump)
+        {
+            rb2d.AddForce(Vector2.up * jumpPower);
+            canJump = false;
         }
     }
 
@@ -339,6 +355,12 @@ public class PlayerController : MonoBehaviour
         feverCount = 0;
         fever = false;
         feverIrast.SetActive(false);
+    }
+
+    //アニメーションイベント（リバース時）
+    public void Reverse()
+    {
+        animator.SetBool("Reverse", true);
     }
 
     //ゲームオーバー後の処理
