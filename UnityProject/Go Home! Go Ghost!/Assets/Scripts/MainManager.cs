@@ -9,20 +9,13 @@ public class MainManager : MonoBehaviour
 {
     [SerializeField] private Text _displayField = default;
     public GameObject panel;
+    public GameObject Connectted;
     public GameObject noConnected;
 
     private List<ScoreData> _memberList;
 
     /// <summary>
-    /// Raises the click clear display event.
-    /// </summary>
-    public void OnClickClearDisplay()
-    {
-        _displayField.text = " ";
-    }
-
-    /// <summary>
-    /// Raises the click get json from www event.
+    /// ボタンを押してウェブリクエストを行ってjsonをゲット
     /// </summary>
     public void OnClickGetJsonFromWebRequest()
     {
@@ -31,7 +24,7 @@ public class MainManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Raises the click show member list
+    /// ランキングの表示
     /// </summary>
     public void OnClickShowMemberList()
     {
@@ -55,9 +48,8 @@ public class MainManager : MonoBehaviour
         _displayField.text = sStrOutput;
     }
 
-
     /// <summary>
-    /// Gets the json from www.
+    /// ウェブリクエストを行ってjsonをゲット
     /// </summary>
     private void GetJsonFromWebRequest()
     {
@@ -70,7 +62,7 @@ public class MainManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Callbacks the www success.
+    /// ウェブリクエストが成功したとき
     /// </summary>
     /// <param name="response">Response.</param>
     private void CallbackWebRequestSuccess(string response)
@@ -78,10 +70,11 @@ public class MainManager : MonoBehaviour
         _memberList = ScoreDataModel.DeserializeFromJson(response);
 
         panel.SetActive(false) ;//wait画像の非表示
+        Connectted.SetActive(true);
     }
 
     /// <summary>
-    /// Callbacks the www failed.
+    /// ウェブリクエストが失敗したとき
     /// </summary>
     private void CallbackWebRequestFailed()
     {
@@ -92,11 +85,11 @@ public class MainManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Downloads the json.
+    /// jsonのダウンロード
     /// </summary>
-    /// <returns>The json.</returns>
-    /// <param name="cbkSuccess">Cbk success.</param>
-    /// <param name="cbkFailed">Cbk failed.</param>
+    /// <returns>The json</returns>
+    /// <param name="cbkSuccess">Cbk success</param>
+    /// <param name="cbkFailed">Cbk failed./param>
     private IEnumerator DownloadJson(Action<string> cbkSuccess = null, Action cbkFailed = null)
     {
         UnityWebRequest www = UnityWebRequest.Get("http://localhost/GameRanking/gamescore/getScore");
@@ -121,11 +114,17 @@ public class MainManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// クリックしたらスコアの送信
+    /// </summary>
     public void OnClickSetMessage()
     {
         SetJsonFromWWW();
     }
 
+    /// <summary>
+    /// スコアの送信
+    /// </summary>
     private void SetJsonFromWWW()
     {
         string sTgtURL = "http://localhost/GameRanking/gamescore/setScore";
@@ -135,6 +134,7 @@ public class MainManager : MonoBehaviour
         StartCoroutine(SetMessage(sTgtURL, score, WebRequestSuccess, CallbackWebRequestFailed));
     }
 
+
     private IEnumerator SetMessage(string url, int score, Action<string> cbkSuccess = null, Action cbkFaild = null)
     {
         WWWForm form = new WWWForm();
@@ -142,6 +142,7 @@ public class MainManager : MonoBehaviour
 
         UnityWebRequest webRequest = UnityWebRequest.Post(url, form);
 
+        //表示するスコアデータの数
         webRequest.timeout = 5;
 
         yield return webRequest.SendWebRequest();
@@ -164,6 +165,6 @@ public class MainManager : MonoBehaviour
     }
     private void WebRequestSuccess(string response)
     {
-
+        //_displayField.text = response;
     }
 }

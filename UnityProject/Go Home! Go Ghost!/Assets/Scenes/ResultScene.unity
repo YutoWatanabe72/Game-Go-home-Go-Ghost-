@@ -1383,6 +1383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayField: {fileID: 2012246073}
   panel: {fileID: 2011125516}
+  Connectted: {fileID: 1088732133}
   noConnected: {fileID: 1052995654}
 --- !u!4 &1837683923
 Transform:
@@ -1410,7 +1411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320fb8c7325aaa74fbf1b1f3f167989e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 48947658}
   Button2: {fileID: 1088732133}
   Ranking: {fileID: 2012246071}
   ScoreText: {fileID: 258519435}

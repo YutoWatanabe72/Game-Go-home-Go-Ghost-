@@ -100,70 +100,37 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //カメラの自動追尾
-        if (chasecamera.transform.position.x <= stageDist || chasecamera.transform.position.x - transform.position.x > 40)
-        {
-            chasecamera.transform.position = new Vector3(transform.position.x + 40, cameraPosY, cameraPosZ);
-        }
-
-        //キャラクターの自動移動
-        rb2d.velocity = new Vector2(playerSpeed, rb2d.velocity.y);
-        reverse.transform.position = new Vector2(transform.position.x, transform.position.y);
-        slow.transform.position = new Vector2(transform.position.x, transform.position.y);
-        freeze.transform.position = this.transform.position;
-
         //タイマーの起動
         this.deltaTime += Time.deltaTime;
         feverTime += Time.deltaTime;
 
-        //ステータスのリセット
-        if (state != playerState.Fever)
-        {
-            if (deltaTime >= stateResetTime)
-            {
-                SetState(playerState.Run);
-                reverse.SetActive(false);
-                animator.SetBool("Reverse", false);
-                slow.SetActive(false);
-                freeze.SetActive(false);
-            }
-        }
-        else if (state == playerState.Fever)
-        {
-            reverse.SetActive(false);
-            slow.SetActive(false);
-            freeze.SetActive(false);
+        //プレイヤーとカメラの自動移動
+        PlayerandCameraMove();
 
-            if (deltaTime >= feverCheckTime)
-            {
-                SetState(playerState.Run);
-            }
-        }
+        //ステータスのリセット
+        StatusReset();
 
         //フィーバータイムの判定
-        if (!feverEvent)
-        {
-            FeverCheck(feverCount);
-        }
-        else
-        {
-            feverIrast.transform.position = new Vector3(transform.position.x, transform.position.y, 1);
-            //フィーバータイム終了後の処理
-            if (feverTime >= feverCheckTime)
-            {
-                FeverEnd();
-            }
-        }
+        FeverCheck(feverCount);
 
         //キャラクターのジャンプ処理
-        if (Input.GetKeyDown("space"))
-        {
-            CanJump();
-        }
+        CanJump();
+
+        //プレイヤーがスタート地点(ｘ=０)に着いたらスタートのテキスト表示
+        StartLogoOn();
+
         //得点処理→Mainに渡すために点数を簡略化
         LifeGage.totalCount = scoreA + (scoreB * scoreMagB) + (scoreC * scoreMagC);
 
-        //プレイヤーがスタート地点(ｘ=０)に着いたらスタートのテキスト表示
+        //ゲームオーバーになった時の処理
+        GameEnd();
+    }
+
+    /// <summary>
+    /// スタート時のロゴの表示
+    /// </summary>
+    private void StartLogoOn()
+    {
         if (!StartLogoDisp)
         {
             if (this.transform.position.x >= -10)
@@ -176,18 +143,30 @@ public class PlayerController : MonoBehaviour
                 StartLogoDisp = true;
             }
         }
+    }
+
+    /// <summary>
+    /// プレイヤーとカメラの自動移動
+    /// </summary>
+    private void PlayerandCameraMove()
+    {
+        //カメラの自動追尾
+        if (chasecamera.transform.position.x <= stageDist || chasecamera.transform.position.x - transform.position.x > 40)
+        {
+            chasecamera.transform.position = new Vector3(transform.position.x + 40, cameraPosY, cameraPosZ);
+        }
+
+        //キャラクターの自動移動
+        rb2d.velocity = new Vector2(playerSpeed, rb2d.velocity.y);
+        reverse.transform.position = new Vector2(transform.position.x, transform.position.y);
+        slow.transform.position = new Vector2(transform.position.x, transform.position.y);
+        freeze.transform.position = this.transform.position;
 
         //ゴールまでの距離の表示
         distansText.text = Mathf.Floor(stageDist - transform.position.x).ToString() + "m/1000m";
-
-
-        //ゲームオーバーになった時の処理
-        if (this.transform.position.x >= stageDist || LifeGage.playerLife <= 0)
-        {
-            GameEnd();
-        }
     }
 
+    //プレイヤーの当たり判定とジャンプ可否の処理
     public void OnCollisionEnter2D(Collision2D hit)
     {
         //床と接触していればジャンプカウントのリセット
@@ -215,9 +194,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// アイテムとの接触処理
+    /// </summary>
+    /// <param name="hit">当たったアイテム</param>
     void OnTriggerEnter2D(Collider2D hit)
     {
-        //アイテムと接触したときの処理
         //ライフゲージの回復・得点の加算
         if (hit.gameObject.tag == "recover1")
         {
@@ -252,7 +234,7 @@ public class PlayerController : MonoBehaviour
             if (!fever)
             {
                 if (hit.gameObject.tag == "TrapItemreverse")
-                { 
+                {
                     SetState(playerState.Reverse);
                     reverse.SetActive(true);
                     slow.SetActive(false);
@@ -281,7 +263,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //ステータス別の行動の変化
+    /// <summary>
+    /// ステータス別の行動
+    /// </summary>
+    /// <param name="tempstate">プレイヤーのステータス</param>
     void SetState(playerState tempstate)
     {
         state = tempstate;
@@ -324,37 +309,81 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //ジャンプ処理
-    private void CanJump()
+    /// <summary>
+    /// ステータスのリセット
+    /// </summary>
+    private void StatusReset()
     {
-        if (canJump)
+        if (state != playerState.Fever)
         {
-            rb2d.AddForce(Vector2.up * jumpPower);
-            canJump = false;
+            if (deltaTime >= stateResetTime)
+            {
+                SetState(playerState.Run);
+                reverse.SetActive(false);
+                animator.SetBool("Reverse", false);
+                slow.SetActive(false);
+                freeze.SetActive(false);
+            }
+        }
+        else
+        {
+            reverse.SetActive(false);
+            slow.SetActive(false);
+            freeze.SetActive(false);
+
+            if (deltaTime >= feverCheckTime)
+            {
+                SetState(playerState.Run);
+            }
         }
     }
 
+    /// <summary>
+    /// ジャンプ処理
+    /// </summary>
+    private void CanJump()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            if (canJump)
+            {
+                rb2d.AddForce(Vector2.up * jumpPower);
+                canJump = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// フィーバータイムかどうかのチェック
+    /// </summary>
+    /// <param name="count">アイテムのカウント</param>
     void FeverCheck(int count)
     {
         //フィーバータイムを満たしているかチェック
-        if (count >= needFeverCount)
+        if (!feverEvent)
         {
-            feverEvent = true;
-            feverIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
-            feverIrast.SetActive(true);
-            fever = true;
-            feverTime = 0f;
-            SetState(playerState.Fever);
+            if (count >= needFeverCount)
+            {
+                feverEvent = true;
+                feverIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
+                feverIrast.SetActive(true);
+                fever = true;
+                feverTime = 0f;
+                SetState(playerState.Fever);
+            }
         }
-    }
-
-    void FeverEnd()
-    {
-        //フィーバータイム終了
-        feverEvent = false;
-        feverCount = 0;
-        fever = false;
-        feverIrast.SetActive(false);
+        else
+        {
+            feverIrast.transform.position = new Vector3(transform.position.x, transform.position.y, 1);
+            //フィーバータイム終了後の処理
+            if (feverTime >= feverCheckTime)
+            {
+                feverEvent = false;
+                feverCount = 0;
+                fever = false;
+                feverIrast.SetActive(false);
+            }
+        }
     }
 
     //アニメーションイベント（リバース時）
@@ -363,30 +392,35 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Reverse", true);
     }
 
-    //ゲームオーバー後の処理
+    /// <summary>
+    ///ゲームオーバー後の処理 
+    /// </summary>
     void GameEnd()
     {
-        canJump = false;//ジャンプ不可
-        LifeGage.endflag = true;//体力ゲージの自動減少の停止
-        toresultButton.SetActive(true);//シーン遷移のボタン表示
-        toResult = GameObject.Find("Canvas/ToResult").GetComponent<Button>();
-        toResult.Select();
+        if (this.transform.position.x >= stageDist || LifeGage.playerLife <= 0)
+        {
+            canJump = false;//ジャンプ不可
+            LifeGage.endflag = true;//体力ゲージの自動減少の停止
+            toresultButton.SetActive(true);//シーン遷移のボタン表示
+            toResult = GameObject.Find("Canvas/ToResult").GetComponent<Button>();
+            toResult.Select();
 
-        if (LifeGage.playerLife <= 0)
-        {
-            //ゲームオーバー時のUI変更
-            loseIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
-            GameOver.SetActive(true);
-            defIrast.SetActive(false);
-            loseIrast.SetActive(true);
-        }
-        else
-        {
-            //ゲームクリア時のUI変更
-            winIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
-            Clear.SetActive(true);
-            defIrast.SetActive(false);
-            winIrast.SetActive(true);
+            if (LifeGage.playerLife <= 0)
+            {
+                //ゲームオーバー時のUI変更
+                loseIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
+                GameOver.SetActive(true);
+                defIrast.SetActive(false);
+                loseIrast.SetActive(true);
+            }
+            else
+            {
+                //ゲームクリア時のUI変更
+                winIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
+                Clear.SetActive(true);
+                defIrast.SetActive(false);
+                winIrast.SetActive(true);
+            }
         }
     }
 }
