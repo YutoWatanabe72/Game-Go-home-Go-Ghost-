@@ -276,6 +276,7 @@ public class PlayerController : MonoBehaviour
             playerSpeed = runSpeed;
             deltaTime = 0f;
             Freeze = false;
+            animator.SetBool("Freez",false);
             canJump = true;
         }
         else if (tempstate == playerState.Fever)//フィーバータイム中
@@ -299,6 +300,7 @@ public class PlayerController : MonoBehaviour
         else if (tempstate == playerState.Freeze)//フリーズ
         {
             playerSpeed = 0f;
+            animator.SetBool("Freez",true);
             deltaTime = 0f;
             Freeze = true;
             canJump = false;
