@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviour
         {
             playerSpeed = maxRun;
             deltaTime = 0f;
+            animator.SetBool("Reverse", false);
             Freeze = false;
             canJump = true;
         }
@@ -300,6 +301,7 @@ public class PlayerController : MonoBehaviour
         else if (tempstate == playerState.Freeze)//フリーズ
         {
             playerSpeed = 0f;
+            animator.SetBool("Reverse", false);
             animator.SetBool("Freez",true);
             deltaTime = 0f;
             Freeze = true;
