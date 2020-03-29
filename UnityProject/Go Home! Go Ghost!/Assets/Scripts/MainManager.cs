@@ -20,6 +20,7 @@ public class MainManager : MonoBehaviour
     public void OnClickGetJsonFromWebRequest()
     {
         panel.SetActive(true);//wait画像の表示
+        _displayField.text = null;
         GetJsonFromWebRequest();
     }
 

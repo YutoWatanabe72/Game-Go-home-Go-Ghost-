@@ -14,8 +14,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -46,6 +48,8 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 50
+      Script: {instanceID: 0}
+    - Class: 60
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
@@ -799,7 +803,7 @@ ScriptsOnlyBuild:
     className: ChengeSceneManager
   - hash:
       serializedVersion: 2
-      Hash: adebcbc861016c270dfad14f63e46de8
+      Hash: 0b961151ec16ab3b6bbd25c6ca1ce5c6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MainManager
@@ -835,7 +839,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: e0b9719aad1d3ead2c96961eec015b28
+      Hash: 6afdcf2566ebbebcff16d51b35ece3d3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ResultSceneUI

@@ -17,6 +17,6 @@ public class ResultSceneUI : MonoBehaviour
     public void OnClickButton2()
     {
         Ranking.SetActive(true);//ランキングの表示
-        Button2.SetActive(false);//ランキング表示ボタンをオフに
+        //Button2.SetActive(false);//ランキング表示ボタンをオフに
     }
 }
