@@ -20,8 +20,7 @@ public class PlayerController : MonoBehaviour
     private float slowRun = 10.0f;
 
     //キャラクターのジャンプ
-    private float jumpPower;
-    private float maxjumpPower = 4000f;//ジャンプの強さ
+    private float jumpPower = 4000f;//ジャンプの強さ
     bool canJump = true;//ジャンプ可能かどうかの判定
 
     //フィーバータイム
@@ -84,7 +83,6 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSpeed = runSpeed;
-        jumpPower = maxjumpPower;
         //ステータスのリセット
         scoreA = 0;
         scoreB = 0;

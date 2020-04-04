@@ -2285,6 +2285,11 @@ PrefabInstance:
       propertyPath: slow
       value: 
       objectReference: {fileID: 971156105}
+    - target: {fileID: 8348577607324548631, guid: 35761928005bbd84db5c9f9fabd86a32,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35761928005bbd84db5c9f9fabd86a32, type: 3}
 --- !u!1 &1065328079365949460 stripped

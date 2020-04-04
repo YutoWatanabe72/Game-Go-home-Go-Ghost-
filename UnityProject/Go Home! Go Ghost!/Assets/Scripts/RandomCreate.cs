@@ -89,7 +89,7 @@ public class RandomCreate : MonoBehaviour
     {
         GameObject hitodama;
         GameObject hitodama2;
-        //床と同じｘ軸のところに生成
+        //床と同じY軸のところに生成
         for (int i = 0; i < (stageLength / floarLength) - 1; i++)
         {
             //hitodamaのオブジェクト設定
