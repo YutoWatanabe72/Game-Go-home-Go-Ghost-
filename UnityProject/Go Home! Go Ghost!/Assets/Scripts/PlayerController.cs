@@ -366,6 +366,7 @@ public class PlayerController : MonoBehaviour
         {
             if (count >= needFeverCount)
             {
+                animator.SetBool("Reverse", false);
                 feverEvent = true;
                 feverIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
                 feverIrast.SetActive(true);

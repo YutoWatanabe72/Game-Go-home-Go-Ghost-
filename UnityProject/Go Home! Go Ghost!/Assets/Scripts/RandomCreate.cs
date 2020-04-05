@@ -49,13 +49,13 @@ public class RandomCreate : MonoBehaviour
                     stageNum[i] = stageNum[i - 1];
                     break;
                 case 1:
-                    if (stageNum[i - 1] == 0 || stageNum[i - 1] == 1 || stageNum[i - 1] == 2)
-                    {
-                        stageNum[i] = stageNum[i - 1] + 1;
-                    }
-                    else if (stageNum[i - 1] == 3)
+                    if (stageNum[i - 1] == 3)
                     {
                         stageNum[i] = stageNum[i - 1];
+                    }
+                    else
+                    {
+                        stageNum[i] = stageNum[i - 1] + 1;
                     }
                     break;
                 case 2:
@@ -63,7 +63,7 @@ public class RandomCreate : MonoBehaviour
                     {
                         stageNum[i] = stageNum[i - 1];
                     }
-                    else if (stageNum[i - 1] == 1 || stageNum[i - 1] == 2 || stageNum[i - 1] == 3)
+                    else
                     {
                         stageNum[i] = stageNum[i - 1] - 1;
                     }
@@ -126,8 +126,9 @@ public class RandomCreate : MonoBehaviour
                     hitodama2 = Item3;
                     break;
             }
-
+            //床の位置の上に生成
             Instantiate(hitodama, new Vector3(floarLength * (i + 1), -12 + (stageNum[i] * 14), 0), transform.rotation);
+            //床の位置と反対側に生成
             if (i % 2 == 1 && stageNum[i] != 0)
             {
                 Instantiate(hitodama2, new Vector3(floarLength * (i + 1), 30 - (stageNum[i] * 14), 0), transform.rotation);
@@ -135,8 +136,9 @@ public class RandomCreate : MonoBehaviour
         }
 
         //床と床の間に生成
-        for (int i = 1; i < (stageLength / floarLength); i++)
+        for (int i = 0; i < (stageLength / floarLength) - 1; i++)
         {
+
             int Itemrnd = Random.Range(0, 6);
             switch (Itemrnd)
             {
@@ -153,8 +155,27 @@ public class RandomCreate : MonoBehaviour
                     hitodama = Item3;
                     break;
             }
-            int rnd = Random.Range(0, 3);
-            Instantiate(hitodama, new Vector3(floarLength * i + 20, -12 + (rnd * 14), 0), transform.rotation);
+            //最初の人魂
+            if (i == 0)
+            {
+                Instantiate(hitodama, new Vector3(floarLength * i + 20, -1.5f, 0), transform.rotation);
+            }
+
+            switch (stageNum[i] - stageNum[i + 1])
+            {
+                case -1://次の床が一段上
+                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20, -5 + (stageNum[i] * 14), 0), transform.rotation);
+                    break;
+                case 0://次の床が同じ高さ
+                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20, 2 + (stageNum[i] * 14), 0), transform.rotation);
+                    break;
+                case 1://次の床が一段下
+                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20, -19 + (stageNum[i] * 14), 0), transform.rotation);
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 
@@ -180,34 +201,21 @@ public class RandomCreate : MonoBehaviour
             }
             //ステージ半分までのトラップアイテムの出現
             if ((i < (stageLength / TrapItemLength2) / 2) && (i % 2 == 1))
-            {   
-                TrapSet(TrapItem,i);
+            {
+                TrapSet(TrapItem, i);
             }
             //残り距離が半分を切ったらトラップアイテムの出現間隔を短く
             else if (i > (stageLength / TrapItemLength2) / 2)
             {
-                TrapSet(TrapItem,i);
+                TrapSet(TrapItem, i);
             }
         }
     }
     //トラップアイテムを出現させる関数
     private void TrapSet(GameObject TrapItem, int num)
     {
-        int rnd = Random.Range(0, 6);
-        switch (rnd)
-        {
-            case 0:
-            case 1:
-            case 2:
-                Instantiate(TrapItem, new Vector3((TrapItemLength2 * num) - 5, -12, 0), transform.rotation);
-                break;
-            case 3:
-            case 4:
-                Instantiate(TrapItem, new Vector3((TrapItemLength2 * num) - 5, 2, 0), transform.rotation);
-                break;
-            default:
-                Instantiate(TrapItem, new Vector3((TrapItemLength2 * num) - 5, 16, 0), transform.rotation);
-                break;
-        }
+
+        Instantiate(TrapItem, new Vector3((TrapItemLength2 * (num + 1)) - 5, -12 + (stageNum[num] * 14), 0), transform.rotation);
+
     }
 }
