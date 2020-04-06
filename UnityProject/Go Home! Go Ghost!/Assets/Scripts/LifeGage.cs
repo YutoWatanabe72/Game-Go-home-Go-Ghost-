@@ -8,9 +8,9 @@ public class LifeGage : MonoBehaviour
     public static int playerLife = 30000;//キャラクターのHP
     public static int totalCount;//スコアアイテムの合計個数
     public static bool endflag;//ゲームオーバーフラグ
-    int Score;//合計スコア
+    private int Score;//合計スコア
     public static int totalScore;//トータルスコア
-    int defaultlife;//キャラクターの最大HP
+    private int defaultlife;//キャラクターの最大HP
     const int autoDamage = 10;//1フレームごとのダメージ量
     const int scoreMag = 10;//スコアの加算倍率
 

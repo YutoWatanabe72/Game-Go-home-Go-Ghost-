@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rb2d;
-    Animator animator;
+    private Rigidbody2D rb2d;
+    private Animator animator;
 
     //カメラのポジション
-    const float cameraPosY = 10f;
-    const float cameraPosZ = -10f;
+    private const float cameraPosY = 10.0f;
+    private const float cameraPosZ = -10.0f;
 
     //キャラクターの移動スピード
     public static float playerSpeed;
@@ -21,34 +21,34 @@ public class PlayerController : MonoBehaviour
 
     //キャラクターのジャンプ
     private float jumpPower = 4000f;//ジャンプの強さ
-    bool canJump = true;//ジャンプ可能かどうかの判定
+    private bool canJump = true;//ジャンプ可能かどうかの判定
 
     //フィーバータイム
-    bool feverEvent = false;//フィーバータイムの判定
-    int feverCount = 0;//フィーバータイムになるまでに獲得したカウント数
-    const int needFeverCount = 10;//フィーバータイムに必要なアイテムカウント数
-    const float feverCheckTime = 5f;//フィーバータイムの時間
+    private bool feverEvent = false;//フィーバータイムの判定
+    private int feverCount = 0;//フィーバータイムになるまでに獲得したカウント数
+    private const int needFeverCount = 10;//フィーバータイムに必要なアイテムカウント数
+    private const float feverCheckTime = 5f;//フィーバータイムの時間
     private float feverTime;
     private bool fever;
 
-    const float stageDist = 1000f;//プレイステージの距離
+    private const float stageDist = 1000.0f;//プレイステージの距離
 
     //HPゲージの回復量
-    const int recoverLevel1 = 1000;
-    const int recoverLevel2 = 1500;
-    const int recoverLevel3 = 2000;
+    private const int recoverLevel1 = 1000;
+    private const int recoverLevel2 = 1500;
+    private const int recoverLevel3 = 2000;
 
-    float deltaTime;//プレイヤーのステータス管理時間
-    float destroyTime = 0.25f;//アイテムの消滅時間
+    private float deltaTime;//プレイヤーのステータス管理時間
+    private float destroyTime = 0.25f;//アイテムの消滅時間
 
-    int scoreA;//10点アイテムのカウント数
-    int scoreB;//50点アイテムのカウント数
-    int scoreC;//100点アイテムのカウント数
-    const int scoreMagB = 5;//スコアの倍率
-    const int scoreMagC = 10;//　〃
+    private int scoreA;//10点アイテムのカウント数
+    private int scoreB;//50点アイテムのカウント数
+    private int scoreC;//100点アイテムのカウント数
+    private const int scoreMagB = 5;//スコアの倍率
+    private const int scoreMagC = 10;//　〃
 
     public GameObject toresultButton;//リザルトシーンへのシーン遷移ボタン
-    Button toResult;
+    private Button toResult;
     public GameObject Clear;//クリア表示
     public GameObject GameOver;//ゲームオーバー表示
     public GameObject winIrast;//ゲームクリア時のキャラクターのイラスト
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     public GameObject chasecamera;//カメラのポジション
 
     private playerState state;//プレイヤーのステータス
-    private float stateResetTime = 3f;//プレイヤーのステータスをリセットする時間
+    private float stateResetTime = 3.0f;//プレイヤーのステータスをリセットする時間
     private bool Freeze;//プレイヤーが停止しているかどうか
     private bool StartLogoDisp;
 
@@ -88,8 +88,8 @@ public class PlayerController : MonoBehaviour
         scoreB = 0;
         scoreC = 0;
         state = playerState.Run;
-        deltaTime = 0;
-        feverTime = 0f;
+        deltaTime = 0.0f;
+        feverTime = 0.0f;
         //boolの初期化
         fever = false;
         Freeze = false;
@@ -131,11 +131,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!StartLogoDisp)
         {
-            if (this.transform.position.x >= -10)
+            if (this.transform.position.x >= -10.0f)
             {
                 startText.SetActive(true);
             }
-            if (this.transform.position.x >= 20)
+            if (this.transform.position.x >= 20.0f)
             {
                 startText.SetActive(false);
                 StartLogoDisp = true;
@@ -149,9 +149,9 @@ public class PlayerController : MonoBehaviour
     private void PlayerandCameraMove()
     {
         //カメラの自動追尾
-        if (chasecamera.transform.position.x <= stageDist || chasecamera.transform.position.x - transform.position.x > 40)
+        if (chasecamera.transform.position.x <= stageDist || chasecamera.transform.position.x - transform.position.x > 40.0f)
         {
-            chasecamera.transform.position = new Vector3(transform.position.x + 40, cameraPosY, cameraPosZ);
+            chasecamera.transform.position = new Vector3(transform.position.x + 40.0f, cameraPosY, cameraPosZ);
         }
 
         //キャラクターの自動移動
@@ -272,7 +272,6 @@ public class PlayerController : MonoBehaviour
         if (tempstate == playerState.Run)//通常
         {
             playerSpeed = runSpeed;
-            deltaTime = 0f;
             Freeze = false;
             animator.SetBool("Freez",false);
             canJump = true;
@@ -280,7 +279,6 @@ public class PlayerController : MonoBehaviour
         else if (tempstate == playerState.Fever)//フィーバータイム中
         {
             playerSpeed = maxRun;
-            deltaTime = 0f;
             animator.SetBool("Reverse", false);
             Freeze = false;
             canJump = true;
@@ -289,26 +287,24 @@ public class PlayerController : MonoBehaviour
         {
             playerSpeed = reverseRun;
             animator.SetTrigger("ReverseTrigger");
-            deltaTime = 0f;
         }
         else if (tempstate == playerState.Slow)//スロウ
         {
             playerSpeed = slowRun;
-            deltaTime = 0f;
         }
         else if (tempstate == playerState.Freeze)//フリーズ
         {
-            playerSpeed = 0f;
+            playerSpeed = 0.0f;
             animator.SetBool("Reverse", false);
             animator.SetBool("Freez",true);
-            deltaTime = 0f;
             Freeze = true;
             canJump = false;
         }
         else if (tempstate == playerState.Gameend)//ゲーム終了
         {
-            playerSpeed = 0f;
+            playerSpeed = 0.0f;
         }
+        deltaTime = 0.0f;
     }
 
     /// <summary>
@@ -371,7 +367,7 @@ public class PlayerController : MonoBehaviour
                 feverIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
                 feverIrast.SetActive(true);
                 fever = true;
-                feverTime = 0f;
+                feverTime = 0.0f;
                 SetState(playerState.Fever);
             }
         }

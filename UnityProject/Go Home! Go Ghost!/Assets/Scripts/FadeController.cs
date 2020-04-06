@@ -38,7 +38,7 @@ public class FadeController : MonoBehaviour
     {
         alfa -= fadeSpeed;
         SetAlfa();
-        if(alfa <= 0)
+        if(alfa <= 0.0f)
         {
             isFadeIn = false;
             fadeImage.enabled = false;
@@ -50,7 +50,7 @@ public class FadeController : MonoBehaviour
         fadeImage.enabled = true;
         alfa += fadeSpeed;
         SetAlfa();
-        if(alfa >= 1)
+        if(alfa >= 1.0f)
         {
             isFadeOut = false;
         }
