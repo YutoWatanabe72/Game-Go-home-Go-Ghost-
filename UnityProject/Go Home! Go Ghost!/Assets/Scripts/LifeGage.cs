@@ -40,7 +40,6 @@ public class LifeGage : MonoBehaviour
         if(playerLife >= defaultlife)
         {
             playerLife = defaultlife;
-            
         }
 
         //ライフゲージの自動減少

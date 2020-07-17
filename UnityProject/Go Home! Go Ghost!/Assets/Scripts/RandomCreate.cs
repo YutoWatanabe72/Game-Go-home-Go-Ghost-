@@ -33,37 +33,24 @@ public class RandomCreate : MonoBehaviour
         CreateTrap();
     }
 
-
+    //床の生成位置（高さ）を設定
     private void CreateStageNum()
     {
         stageNum[0] = 1;
         for (int i = 1; i < 100; i++)
         {
             int rnd = Random.Range(0, 3);
+            int num = stageNum[i - 1];
             switch (rnd)
             {
                 case 0:
-                    stageNum[i] = stageNum[i - 1];
+                    stageNum[i] = num;
                     break;
                 case 1:
-                    if (stageNum[i - 1] == 3)
-                    {
-                        stageNum[i] = stageNum[i - 1];
-                    }
-                    else
-                    {
-                        stageNum[i] = stageNum[i - 1] + 1;
-                    }
+                    stageNum[i] = (num == 3 ? num : num + 1);
                     break;
                 case 2:
-                    if (stageNum[i - 1] == 0)
-                    {
-                        stageNum[i] = stageNum[i - 1];
-                    }
-                    else
-                    {
-                        stageNum[i] = stageNum[i - 1] - 1;
-                    }
+                    stageNum[i] = (num == 0 ? num : num - 1);
                     break;
             }
         }
