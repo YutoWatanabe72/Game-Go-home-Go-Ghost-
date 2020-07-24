@@ -199,66 +199,63 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D hit)
     {
         //ライフゲージの回復・得点の加算
-        if (hit.gameObject.tag == "recover1")
+        switch (hit.gameObject.tag)
         {
-            hit.transform.localScale = new Vector2(1, 1);
-            LifeGage.playerLife += recoverLevel1;
-            scoreA++;
-            feverCount++;
-            Destroy(hit.gameObject, destroyTime);
+            case "recover1":
+                hit.transform.localScale = new Vector2(1, 1);
+                LifeGage.playerLife += recoverLevel1;
+                scoreA++;
+                feverCount++;
+                break;
+            case "recover2":
+                hit.transform.localScale = new Vector2(1, 1);
+                LifeGage.playerLife += recoverLevel2;
+                scoreB++;
+                feverCount++;
+                break;
+            case "recover3":
+                hit.transform.localScale = new Vector2(1, 1);
+                LifeGage.playerLife += recoverLevel3;
+                scoreC++;
+                feverCount++;
+                break;
+            default:
+                break;
         }
 
-        if (hit.gameObject.tag == "recover2")
+        if (!fever)
         {
-            hit.transform.localScale = new Vector2(1, 1);
-            LifeGage.playerLife += recoverLevel2;
-            scoreB++;
-            feverCount++;
-            Destroy(hit.gameObject, destroyTime);
-        }
-
-        if (hit.gameObject.tag == "recover3")
-        {
-            hit.transform.localScale = new Vector2(1, 1);
-            LifeGage.playerLife += recoverLevel3;
-            scoreC++;
-            feverCount++;
-            Destroy(hit.gameObject, destroyTime);
-        }
-
-        //トラップアイテムによるプレイヤーのステータスの変更
-        if (hit.gameObject.tag == "TrapItemfreeze" || hit.gameObject.tag == "TrapItemreverse" || hit.gameObject.tag == "TrapItemslow")
-        {
-            if (!fever)
+            //トラップアイテムによるプレイヤーのステータスの変更
+            switch (hit.gameObject.tag)
             {
-                if (hit.gameObject.tag == "TrapItemreverse")
-                {
+                //反転
+                case "TrapItemreverse":
                     SetState(playerState.Reverse);
                     reverse.SetActive(true);
                     slow.SetActive(false);
                     freeze.SetActive(false);
-                }
-                if (hit.gameObject.tag == "TrapItemslow")
-                {
+                    break;
+                //減速
+                case "TrapItemslow":
                     SetState(playerState.Slow);
                     slow.SetActive(true);
                     reverse.SetActive(false);
                     freeze.SetActive(false);
-                }
-                if (hit.gameObject.tag == "TrapItemfreeze")
-                {
+                    break;
+                //停止
+                case "TrapItemfreeze":
                     SetState(playerState.Freeze);
                     freeze.SetActive(true);
                     reverse.SetActive(false);
                     slow.SetActive(false);
-                }
-                Destroy(hit.gameObject);
-            }
-            else
-            {
-                Destroy(hit.gameObject, destroyTime);
+                    break;
+                default:
+                    break;
             }
         }
+
+        Destroy(hit.gameObject, destroyTime);
+
     }
 
     /// <summary>
@@ -273,7 +270,7 @@ public class PlayerController : MonoBehaviour
         {
             playerSpeed = runSpeed;
             Freeze = false;
-            animator.SetBool("Freez",false);
+            animator.SetBool("Freez", false);
             canJump = true;
         }
         else if (tempstate == playerState.Fever)//フィーバータイム中
@@ -296,7 +293,7 @@ public class PlayerController : MonoBehaviour
         {
             playerSpeed = 0.0f;
             animator.SetBool("Reverse", false);
-            animator.SetBool("Freez",true);
+            animator.SetBool("Freez", true);
             Freeze = true;
             canJump = false;
         }
