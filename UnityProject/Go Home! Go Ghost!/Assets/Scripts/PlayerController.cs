@@ -14,10 +14,11 @@ public class PlayerController : MonoBehaviour
 
     //キャラクターの移動スピード
     public static float playerSpeed;
-    private float runSpeed = 30.0f;
-    private float maxRun = 45.0f;
-    private float reverseRun = -25.0f;
-    private float slowRun = 10.0f;
+    private const float runSpeed = 30.0f;
+    private const float maxRun = 45.0f;
+    private const float reverseRun = -25.0f;
+    private const float slowRun = 10.0f;
+    private const float speedZero = 0.0f;
 
     //キャラクターのジャンプ
     private float jumpPower = 4000f;//ジャンプの強さ
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
     private const float feverCheckTime = 5f;//フィーバータイムの時間
     private float feverTime;
     private bool fever;
+    private const float timeReset = 0.0f;
 
     private const float stageDist = 1000.0f;//プレイステージの距離
 
@@ -46,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private int scoreC;//100点アイテムのカウント数
     private const int scoreMagB = 5;//スコアの倍率
     private const int scoreMagC = 10;//　〃
+    private const int scoreReset = 0;//　〃
 
     public GameObject toresultButton;//リザルトシーンへのシーン遷移ボタン
     private Button toResult;
@@ -84,12 +87,12 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerSpeed = runSpeed;
         //ステータスのリセット
-        scoreA = 0;
-        scoreB = 0;
-        scoreC = 0;
+        scoreA = scoreReset;
+        scoreB = scoreReset;
+        scoreC = scoreReset;
         state = playerState.Run;
-        deltaTime = 0.0f;
-        feverTime = 0.0f;
+        deltaTime = timeReset;
+        feverTime = timeReset;
         //boolの初期化
         fever = false;
         Freeze = false;
@@ -291,7 +294,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (tempstate == playerState.Freeze)//フリーズ
         {
-            playerSpeed = 0.0f;
+            playerSpeed = speedZero;
             animator.SetBool("Reverse", false);
             animator.SetBool("Freez", true);
             Freeze = true;
@@ -299,9 +302,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (tempstate == playerState.Gameend)//ゲーム終了
         {
-            playerSpeed = 0.0f;
+            playerSpeed = speedZero;
         }
-        deltaTime = 0.0f;
+        deltaTime = timeReset;
     }
 
     /// <summary>
@@ -364,7 +367,7 @@ public class PlayerController : MonoBehaviour
                 feverIrast.transform.position = new Vector2(transform.position.x, transform.position.y);
                 feverIrast.SetActive(true);
                 fever = true;
-                feverTime = 0.0f;
+                feverTime = timeReset;
                 SetState(playerState.Fever);
             }
         }

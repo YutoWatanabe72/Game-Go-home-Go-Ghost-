@@ -13,6 +13,7 @@ public class LifeGage : MonoBehaviour
     private int defaultlife;//キャラクターの最大HP
     const int autoDamage = 10;//1フレームごとのダメージ量
     const int scoreMag = 10;//スコアの加算倍率
+    const int resetCount = 0;//スコアのリセット値・・・０
 
     Slider slider;
     public Text ScoreText;//スコアの表示
@@ -21,10 +22,10 @@ public class LifeGage : MonoBehaviour
     void Start()
     {
         //初期化
-        totalCount = 0;
-        Score = 0;
+        totalCount = resetCount;
+        Score = resetCount;
         defaultlife = playerLife;
-        totalScore = 0;
+        totalScore = resetCount;
 
         slider = GameObject.Find("LifeGage").GetComponent<Slider>();
         slider.maxValue = playerLife;

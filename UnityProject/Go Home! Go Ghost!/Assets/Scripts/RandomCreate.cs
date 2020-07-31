@@ -8,12 +8,15 @@ public class RandomCreate : MonoBehaviour
     public GameObject Item1;
     public GameObject Item2;
     public GameObject Item3;
+    const int itemRate = 6;
     //ダメージアイテム
     public GameObject TrapItem1;
     public GameObject TrapItem2;
     public GameObject TrapItem3;
+    const int itemD_Count = 3;
     //床の生成
     public GameObject floar;
+    const float createPosY = 14.0f;
     //プレイヤー
     public GameObject player;
     //ステージの長さ
@@ -63,7 +66,7 @@ public class RandomCreate : MonoBehaviour
         {
             if (stageNum[i] != 0)
             {
-                Instantiate(floar, new Vector3(floarLength * (i + 1), -18.0f + (stageNum[i] * 14.0f), 0.0f), transform.rotation);
+                Instantiate(floar, new Vector3(floarLength * (i + 1), -18.0f + (stageNum[i] * createPosY), 0.0f), transform.rotation);
             }
         }
     }
@@ -77,7 +80,7 @@ public class RandomCreate : MonoBehaviour
         for (int i = 0; i < (stageLength / floarLength) - 1; i++)
         {
             //hitodamaのオブジェクト設定
-            int Itemrnd = Random.Range(0, 6);
+            int Itemrnd = Random.Range(0, itemRate);
             switch (Itemrnd)
             {
                 case 0:
@@ -94,7 +97,7 @@ public class RandomCreate : MonoBehaviour
                     break;
             }
             //hitodama2のオブジェクト設定
-            int Itemrnd2 = Random.Range(0, 6);
+            int Itemrnd2 = Random.Range(0, itemRate);
             switch (Itemrnd)
             {
                 case 0:
@@ -111,11 +114,11 @@ public class RandomCreate : MonoBehaviour
                     break;
             }
             //床の位置の上に生成
-            Instantiate(hitodama, new Vector3(floarLength * (i + 1), -12.0f + (stageNum[i] * 14.0f), 0.0f), transform.rotation);
+            Instantiate(hitodama, new Vector3(floarLength * (i + 1), -12.0f + (stageNum[i] * createPosY), 0.0f), transform.rotation);
             //床の位置と反対側に生成
             if (i % 2 == 1 && stageNum[i] != 0)
             {
-                Instantiate(hitodama2, new Vector3(floarLength * (i + 1), 30.0f - (stageNum[i] * 14.0f), 0.0f), transform.rotation);
+                Instantiate(hitodama2, new Vector3(floarLength * (i + 1), 30.0f - (stageNum[i] * createPosY), 0.0f), transform.rotation);
             }
         }
 
@@ -123,7 +126,7 @@ public class RandomCreate : MonoBehaviour
         for (int i = 0; i < (stageLength / floarLength) - 1; i++)
         {
 
-            int Itemrnd = Random.Range(0, 6);
+            int Itemrnd = Random.Range(0, itemRate);
             switch (Itemrnd)
             {
                 case 0:
@@ -148,13 +151,13 @@ public class RandomCreate : MonoBehaviour
             switch (stageNum[i] - stageNum[i + 1])
             {
                 case -1://次の床が一段上
-                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20.0f, -5.0f + (stageNum[i] * 14.0f), 0.0f), transform.rotation);
+                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20.0f, -5.0f + (stageNum[i] * createPosY), 0.0f), transform.rotation);
                     break;
                 case 0://次の床が同じ高さ
-                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20.0f, 2.0f + (stageNum[i] * 14.0f), 0.0f), transform.rotation);
+                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20.0f, 2.0f + (stageNum[i] * createPosY), 0.0f), transform.rotation);
                     break;
                 case 1://次の床が一段下
-                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20.0f, -19.0f + (stageNum[i] * 14.0f), 0.0f), transform.rotation);
+                    Instantiate(hitodama, new Vector3(floarLength * (i + 1) + 20.0f, -19.0f + (stageNum[i] * createPosY), 0.0f), transform.rotation);
                     break;
                 default:
                     break;
@@ -170,7 +173,7 @@ public class RandomCreate : MonoBehaviour
 
         for (int i = 1; i < (stageLength / TrapItemLength); i++)
         {
-            int Itemrnd = Random.Range(0, 3);
+            int Itemrnd = Random.Range(0, itemD_Count);
             switch (Itemrnd)
             {
                 case 0:
@@ -198,6 +201,6 @@ public class RandomCreate : MonoBehaviour
     //トラップアイテムを出現させる関数
     private void TrapSet(GameObject TrapItem, int num)
     {
-        Instantiate(TrapItem, new Vector3((TrapItemLength * (num + 1)) - 5.0f, -12.0f + (stageNum[num] * 14.0f), 0.0f), transform.rotation);
+        Instantiate(TrapItem, new Vector3((TrapItemLength * (num + 1)) - 5.0f, -12.0f + (stageNum[num] * createPosY), 0.0f), transform.rotation);
     }
 }

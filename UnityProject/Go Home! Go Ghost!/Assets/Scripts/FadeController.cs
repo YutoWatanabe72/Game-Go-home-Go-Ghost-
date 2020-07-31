@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class FadeController : MonoBehaviour
 {
     const float fadeSpeed = 0.01f;
+    const float fadeInTime = 0.0f;
+    const float fadeOutTime = 1.0f;
     float red, green, blue, alfa;
 
     public bool isFadeOut = false;
@@ -38,7 +40,7 @@ public class FadeController : MonoBehaviour
     {
         alfa -= fadeSpeed;
         SetAlfa();
-        if(alfa <= 0.0f)
+        if(alfa <= fadeInTime)
         {
             isFadeIn = false;
             fadeImage.enabled = false;
@@ -50,7 +52,7 @@ public class FadeController : MonoBehaviour
         fadeImage.enabled = true;
         alfa += fadeSpeed;
         SetAlfa();
-        if(alfa >= 1.0f)
+        if(alfa >= fadeOutTime)
         {
             isFadeOut = false;
         }

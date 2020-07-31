@@ -11,7 +11,8 @@ public class ChengeSceneManager : MonoBehaviour
     private bool titleCheck;
     private bool tutorialCheck;
     private bool endCheck;
-    private bool fadeCheck; 
+    private bool fadeCheck;
+    const float resetTime = 0.0f;
 
     FadeController fadeController;
 
@@ -20,7 +21,7 @@ public class ChengeSceneManager : MonoBehaviour
 
     void Start()
     {
-        timer = 0.0f;
+        timer = resetTime;
         startCheck = false;
         tutorialCheck = false;
         resultCheck = false;
@@ -34,33 +35,33 @@ public class ChengeSceneManager : MonoBehaviour
     {
         startCheck = true;
         fadeCheck = true;
-        timer = 0.0f;
+        timer = resetTime;
     }
     public void PushTutorialButton()
     {
         tutorialCheck = true;
         fadeCheck = true;
-        timer = 0.0f;
+        timer = resetTime;
     }
     public void PushGameResultButton()
     {
         resultCheck = true;
         fadeCheck = true;
-        timer = 0.0f;
+        timer = resetTime;
     }
 
     public void PushGameTitleButton()
     {
         titleCheck = true;
         fadeCheck = true;
-        timer = 0.0f;
+        timer = resetTime;
     }
 
     public void PushGameEndButton()
     {
         endCheck = true;
         fadeCheck = true;
-        timer = 0.0f;
+        timer = resetTime;
     }
     void Quit()
     {
