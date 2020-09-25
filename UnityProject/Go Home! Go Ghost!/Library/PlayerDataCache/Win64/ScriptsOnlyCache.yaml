@@ -839,7 +839,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 6afdcf2566ebbebcff16d51b35ece3d3
+      Hash: 061cb06b4d83886f5f62896f5182f449
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ResultSceneUI
@@ -993,4 +993,5 @@ ScriptsOnlyBuild:
   - Assets/Scenes/TutorialScene.unity
   - Assets/Scenes/MainScene.unity
   - Assets/Scenes/ResultScene.unity
-  playerPath: "C:/Users/yutow/Desktop/\u304A\u3070\u3051/Go Home! Go Ghost!.exe"
+  playerPath: "C:/Users/yutow/Desktop/\u4F5C\u54C1\u30C7\u30FC\u30BF_\u6E21\u9089\u60A0\u6597/\u5B9F\u884C\u30C7\u30FC\u30BF/Go
+    Home! Go Ghost!.exe"

@@ -209,18 +209,21 @@ public class PlayerController : MonoBehaviour
                 LifeGage.playerLife += recoverLevel1;
                 scoreA++;
                 feverCount++;
+                Destroy(hit.gameObject, destroyTime);
                 break;
             case "recover2":
                 hit.transform.localScale = new Vector2(1, 1);
                 LifeGage.playerLife += recoverLevel2;
                 scoreB++;
                 feverCount++;
+                Destroy(hit.gameObject, destroyTime);
                 break;
             case "recover3":
                 hit.transform.localScale = new Vector2(1, 1);
                 LifeGage.playerLife += recoverLevel3;
                 scoreC++;
                 feverCount++;
+                Destroy(hit.gameObject, destroyTime);
                 break;
             default:
                 break;
@@ -237,6 +240,7 @@ public class PlayerController : MonoBehaviour
                     reverse.SetActive(true);
                     slow.SetActive(false);
                     freeze.SetActive(false);
+                    Destroy(hit.gameObject);
                     break;
                 //減速
                 case "TrapItemslow":
@@ -244,6 +248,7 @@ public class PlayerController : MonoBehaviour
                     slow.SetActive(true);
                     reverse.SetActive(false);
                     freeze.SetActive(false);
+                    Destroy(hit.gameObject);
                     break;
                 //停止
                 case "TrapItemfreeze":
@@ -251,14 +256,12 @@ public class PlayerController : MonoBehaviour
                     freeze.SetActive(true);
                     reverse.SetActive(false);
                     slow.SetActive(false);
+                    Destroy(hit.gameObject);
                     break;
                 default:
                     break;
             }
         }
-
-        Destroy(hit.gameObject, destroyTime);
-
     }
 
     /// <summary>
