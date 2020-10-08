@@ -37,6 +37,9 @@ public class RandomCreate : MonoBehaviour
     }
 
     //床の生成位置（高さ）を設定
+    //高さは4段階
+    //0---地面
+    //3---最大の高さ
     private void CreateStageNum()
     {
         stageNum[0] = 1;
